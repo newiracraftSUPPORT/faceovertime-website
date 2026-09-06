@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FaceOverTime — Watch Your Face Change Over Time</title>
 <meta name="description" content="Take one selfie a day. FaceOverTime stitches your daily photos into a time-lapse video timeline of your face development.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>😀</text></svg>">
+<link rel="icon" href="/logo.png">
 <style>
 :root{
   --bg:#0a0f1e;--bg2:#0d1428;--card:#101a33;--text:#f4f7ff;--muted:#9aa8c4;
@@ -21,7 +21,7 @@ img{max-width:100%;display:block}
 header{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(10,15,30,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .nav{height:70px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800;letter-spacing:-.4px}
-.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-size:17px;box-shadow:0 4px 18px #ff5d7e44}
+.logo{width:34px;height:34px;border-radius:10px;object-fit:cover;box-shadow:0 4px 18px #ff5d7e44}
 .navlinks{display:flex;gap:28px;color:var(--muted);font-size:14px}
 .navlinks a:hover{color:white}
 .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:10px;font-weight:700;font-size:14px;border:1px solid transparent;transition:.2s;cursor:pointer}
@@ -88,7 +88,7 @@ footer a:hover{color:white}
 <body>
 <header>
   <div class="container nav">
-    <a class="brand" href="/"><span class="logo">📸</span>FaceOverTime</a>
+    <a class="brand" href="/"><img class="logo" src="/logo.png" alt="FaceOverTime logo">FaceOverTime</a>
     <nav class="navlinks">
       <a href="#how">How It Works</a>
       <a href="#features">Features</a>
@@ -171,7 +171,7 @@ footer a:hover{color:white}
   <div class="container">
     <div class="cta-box">
       <div><h2>Start your timeline today.</h2><p>One selfie a day. A face you'll never forget.</p></div>
-      <a class="btn btn-primary" href="mailto:support@newiracraft.com" onclick="alert('The app is launching soon. Leave us your email to be first to know.');return false;">Get the App →</a>
+      <a class="btn btn-primary" href="mailto:contact@newiracraft.com" onclick="alert('The app is launching soon. Leave us your email to be first to know.');return false;">Get the App →</a>
     </div>
   </div>
 </section>
@@ -181,12 +181,12 @@ footer a:hover{color:white}
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand" href="/"><span class="logo">📸</span>FaceOverTime</a>
+        <a class="brand" href="/"><img class="logo" src="/logo.png" alt="FaceOverTime logo">FaceOverTime</a>
         <p>A selfie a day. A timeline of your face, developed over time.</p>
       </div>
       <div><h4>Product</h4><a href="#how">How It Works</a><a href="#features">Features</a><a href="#about">About</a></div>
       <div><h4>Legal</h4><a href="/terms">Terms of Service</a><a href="/privacy">Privacy Policy</a></div>
-      <div><h4>Contact</h4><a href="mailto:support@newiracraft.com">Support</a><a href="mailto:support@newiracraft.com">Contact Us</a></div>
+      <div><h4>Contact</h4><a href="mailto:contact@newiracraft.com">Support</a><a href="mailto:contact@newiracraft.com">Contact Us</a></div>
     </div>
     <div class="copyright">© 2026 FaceOverTime. All rights reserved.</div>
   </div>
