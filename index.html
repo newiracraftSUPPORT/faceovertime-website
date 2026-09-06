@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FaceOverTime — Watch Your Face Change Over Time</title>
+<meta name="description" content="Take one selfie a day. FaceOverTime stitches your daily photos into a time-lapse video timeline of your face development.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>😀</text></svg>">
+<style>
+:root{
+  --bg:#0a0f1e;--bg2:#0d1428;--card:#101a33;--text:#f4f7ff;--muted:#9aa8c4;
+  --accent:#ff5d7e;--accent2:#ffb054;--blue:#5b8dff;--line:rgba(255,255,255,.09);
+  --max:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.container{width:min(var(--max),calc(100% - 40px));margin:auto}
+header{position:fixed;top:0;left:0;right:0;z-index:20;background:rgba(10,15,30,.8);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav{height:70px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-size:21px;font-weight:800;letter-spacing:-.4px}
+.logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-size:17px;box-shadow:0 4px 18px #ff5d7e44}
+.navlinks{display:flex;gap:28px;color:var(--muted);font-size:14px}
+.navlinks a:hover{color:white}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:10px;font-weight:700;font-size:14px;border:1px solid transparent;transition:.2s;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#1a0b12;box-shadow:0 10px 30px #ff5d7e33}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 36px #ff5d7e55}
+.btn-outline{border-color:#3a4a6b;color:white;background:rgba(255,255,255,.02)}
+.btn-outline:hover{border-color:#8aa2c8}
+.hero{min-height:640px;padding:140px 0 80px;background:
+  radial-gradient(circle at 78% 30%,#ff5d7e22,transparent 30%),
+  radial-gradient(circle at 20% 60%,#5b8dff1f,transparent 32%),
+  linear-gradient(180deg,var(--bg),#081021);overflow:hidden;text-align:center}
+.eyebrow{display:inline-flex;gap:8px;align-items:center;color:#ff9daf;font-weight:700;font-size:13px;letter-spacing:1.5px;margin-bottom:20px}
+.eyebrow span{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
+h1{font-size:clamp(42px,5.6vw,74px);line-height:1.04;letter-spacing:-2.5px;max-width:760px;margin:0 auto}
+.gradient{background:linear-gradient(90deg,var(--accent),var(--accent2) 55%,var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{color:var(--muted);font-size:18px;max-width:600px;margin:22px auto 32px}
+.actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.trust{display:flex;gap:26px;justify-content:center;margin-top:34px;color:#c4cfe4;font-size:13px}
+.trust div{display:flex;align-items:center;gap:8px}.tick{color:#7ee2a8}
+section{padding:86px 0}
+.section-head{text-align:center;max-width:660px;margin:0 auto 50px}
+.section-head h2{font-size:clamp(28px,3.4vw,40px);letter-spacing:-1.2px}
+.section-head p{color:var(--muted);margin-top:12px}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;counter-reset:step}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px;position:relative;transition:.2s}
+.step:hover{transform:translateY(-3px);border-color:#2c3e63}
+.step small{color:var(--accent);font-weight:800;font-size:13px;letter-spacing:1px}
+.step h3{font-size:18px;margin:10px 0 8px}
+.step p{color:var(--muted);font-size:14px}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.feature{padding:26px;border:1px solid var(--line);border-radius:16px;background:var(--card)}
+.feature-icon{width:48px;height:48px;border-radius:13px;background:#1c2b4d;display:grid;place-items:center;font-size:23px;margin-bottom:16px}
+.feature h3{font-size:17px;margin-bottom:7px}
+.feature p{color:var(--muted);font-size:14px}
+.about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.about h2{font-size:clamp(30px,3.4vw,40px);letter-spacing:-1.2px;line-height:1.1;margin-bottom:18px}
+.about p{color:var(--muted);margin-bottom:20px}
+.bullets{display:grid;gap:13px}
+.bullets div{display:flex;gap:10px;align-items:center;font-weight:600;font-size:14px}
+.tick-dot{width:18px;height:18px;border-radius:50%;background:#7ee2a833;color:#7ee2a8;display:grid;place-items:center;font-size:11px}
+.timeline-art{height:340px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(160deg,#141d38,#0b1226);display:grid;place-items:center;position:relative;overflow:hidden}
+.timeline-art:before{content:"DAY 1";position:absolute;left:24px;bottom:30px;font-size:12px;color:#5a6c92;font-weight:700;letter-spacing:1px}
+.timeline-art:after{content:"DAY 365";position:absolute;right:24px;bottom:30px;font-size:12px;color:#5a6c92;font-weight:700;letter-spacing:1px}
+.frames{display:flex;align-items:center;gap:9px;padding:0 20px}
+.frame{width:52px;height:62px;border-radius:10px;border:2px solid #2b3c60;background:linear-gradient(180deg,#243356,#151f38);display:grid;place-items:center;font-size:22px}
+.frame.active{border-color:var(--accent);box-shadow:0 0 20px #ff5d7e44}
+.play{position:absolute;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;font-size:22px;color:#1a0b12;box-shadow:0 12px 30px #ff5d7e55;z-index:2}
+.cta{padding:0 0 90px}
+.cta-box{background:linear-gradient(110deg,#211029,#1a1f3d);border:1px solid var(--line);border-radius:22px;padding:36px 42px;display:flex;align-items:center;justify-content:space-between;gap:25px;flex-wrap:wrap}
+.cta h2{font-size:26px}
+.cta p{color:var(--muted);margin-top:4px}
+footer{background:#070b16;color:#9aa5bd;padding:60px 0 24px;border-top:1px solid var(--line)}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:44px;padding-bottom:40px}
+.footer-brand p{max-width:280px;margin-top:14px;font-size:14px}
+footer h4{color:white;margin-bottom:14px;font-size:14px}
+footer a{display:block;font-size:14px;margin:9px 0;color:#9aa5bd}
+footer a:hover{color:white}
+.copyright{border-top:1px solid var(--line);padding-top:20px;text-align:center;font-size:12px}
+@media(max-width:860px){.navlinks{display:none}.hero{padding-top:120px}.how,.features{grid-template-columns:1fr 1fr}.about-grid{grid-template-columns:1fr}.timeline-art{order:-1}.footer-grid{grid-template-columns:1fr 1fr}.hero-sub{font-size:16px}}
+@media(max-width:560px){.container{width:min(var(--max),calc(100% - 28px))}.how,.features,.footer-grid{grid-template-columns:1fr}.trust{flex-direction:column;gap:10px}.cta-box{padding:28px}.frames{transform:scale(.9)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="/"><span class="logo">📸</span>FaceOverTime</a>
+    <nav class="navlinks">
+      <a href="#how">How It Works</a>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#download">Download</a>
+    </nav>
+    <a class="btn btn-primary" href="#download">Get the App</a>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow"><span></span> ONE SELFIE A DAY</div>
+    <h1>Watch your face<br>develop over time.<br><span class="gradient">One selfie a day.</span></h1>
+    <p class="hero-sub">FaceOverTime stitches your daily selfies into a mesmerizing time-lapse video timeline of your face changing, growing and developing.</p>
+    <div class="actions">
+      <a class="btn btn-primary" href="#download">↧ &nbsp; Download the App</a>
+      <a class="btn btn-outline" href="#how">See How It Works</a>
+    </div>
+    <div class="trust">
+      <div><span class="tick">✓</span> Your photos stay private</div>
+      <div><span class="tick">✓</span> Automatic time-lapse video</div>
+      <div><span class="tick">✓</span> One selfie·One day</div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="section-head"><h2>How it works</h2><p>Three simple steps. One beautiful video of your face over time.</p></div>
+    <div class="how">
+      <div class="step"><small>STEP 1</small><h3>Snap a selfie</h3><p>Take one quick selfie every day. FaceOverTime tells you when it's time for your daily shot.</p></div>
+      <div class="step"><small>STEP 2</small><h3>We line them up</h3><p>Your daily photos are stored privately and smartly aligned so the time-lapse looks smooth.</p></div>
+      <div class="step"><small>STEP 3</small><h3>Watch the timeline</h3><p>At any moment, generate a video timeline of your face development — a week, a month, a year.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="container">
+    <div class="section-head"><h2>Features</h2><p>Everything you need to capture and revisit your personal timeline.</p></div>
+    <div class="features">
+      <article class="feature"><div class="feature-icon">🎞️</div><h3>Time-Lapse Videos</h3><p>Turn your growing selfie collection into shareable time-lapse videos of your face development.</p></article>
+      <article class="feature"><div class="feature-icon">🔔</div><h3>Daily Reminders</h3><p>Gentle nags make it easy to keep your streak going, so the timeline never breaks.</p></article>
+      <article class="feature"><div class="feature-icon">🛡️</div><h3>Private by Design</h3><p>Your selfies stay yours. We work hard to keep your photos safe and under your control.</p></article>
+      <article class="feature"><div class="feature-icon">📅</div><h3>Streak &amp; History</h3><p>Track your consistency and revisit any day of your personal face timeline.</p></article>
+      <article class="feature"><div class="feature-icon">⚡</div><h3>Fast &amp; Light</h3><p>Snap, store, and render smoothly on your phone without fuss.</p></article>
+      <article class="feature"><div class="feature-icon">📤</div><h3>Share Your Journey</h3><p>Export your time-lapse and share your transformation with friends and family.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container about-grid">
+    <div>
+      <h2>Your face has a story. Let it tell itself.</h2>
+      <p>Every day your face changes a little. After a week you'll barely notice. After a year you'll be amazed. FaceOverTime captures the daily moments and weaves them into a single, seamless timeline of your face development.</p>
+      <div class="bullets">
+        <div><span class="tick-dot">✓</span> A selfie-a-day habit, made effortless</div>
+        <div><span class="tick-dot">✓</span> Smooth, aligned time-lapse generation</div>
+        <div><span class="tick-dot">✓</span> Private photo storage by default</div>
+        <div><span class="tick-dot">✓</span> Export and share whenever you're ready</div>
+      </div>
+    </div>
+    <div class="timeline-art">
+      <div class="play">▶</div>
+      <div class="frames">
+        <div class="frame">👶</div>
+        <div class="frame">🙂</div>
+        <div class="frame active">😀</div>
+        <div class="frame">😎</div>
+        <div class="frame">🤩</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="download">
+  <div class="container">
+    <div class="cta-box">
+      <div><h2>Start your timeline today.</h2><p>One selfie a day. A face you'll never forget.</p></div>
+      <a class="btn btn-primary" href="mailto:support@newiracraft.com" onclick="alert('The app is launching soon. Leave us your email to be first to know.');return false;">Get the App →</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="/"><span class="logo">📸</span>FaceOverTime</a>
+        <p>A selfie a day. A timeline of your face, developed over time.</p>
+      </div>
+      <div><h4>Product</h4><a href="#how">How It Works</a><a href="#features">Features</a><a href="#about">About</a></div>
+      <div><h4>Legal</h4><a href="/terms.html">Terms of Service</a><a href="/privacy.html">Privacy Policy</a></div>
+      <div><h4>Contact</h4><a href="mailto:support@newiracraft.com">Support</a><a href="mailto:support@newiracraft.com">Contact Us</a></div>
+    </div>
+    <div class="copyright">© 2026 FaceOverTime. All rights reserved.</div>
+  </div>
+</footer>
+</body>
+</html>
